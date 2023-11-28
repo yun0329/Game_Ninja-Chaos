@@ -26,7 +26,7 @@ boolean KeyLeft = false;
 boolean KeyRight = false;
 boolean KeySpace = false;
 
-final String imgPath ="C:\\Users\\yunji\\Desktop\\Game_Ninja-Chaos\\Main\\src\\ImageIcon\\";
+
 
 int cnt; 
 
@@ -89,8 +89,8 @@ y = 100;
 f_width = 1000;
 f_height = 460;
 
-Missile_img = new ImageIcon(imgPath+"Missile.png").getImage();
-Enemy_img = new ImageIcon(imgPath+"enemy.png").getImage();
+Missile_img = new ImageIcon("../Main/src/ImageIcon/Missile.png").getImage();
+Enemy_img = new ImageIcon("../Main/src/ImageIcon/enemy.png").getImage();
 //이미지 만드는 방식을 ImageIcon으로 변경.
 
 Player_img = new Image[5];
@@ -98,13 +98,13 @@ int playerWidth =60;
 int playerHeight =70;
 for(int i = 0 ; i < Player_img.length ; ++i){
 Image playerImage = 
-new ImageIcon(imgPath+ "f15k_" + i + ".jpg").getImage();
+new ImageIcon( "../Main/src/ImageIcon/f15k_" + i + ".jpg").getImage();
 Player_img[i] = playerImage.getScaledInstance(playerWidth, playerHeight, Image.SCALE_DEFAULT);
 }
 //플레이어 애니메이션 표현을 위해 파일이름을 
 //넘버마다 나눠 배열로 담는다.
 
-BackGround_img = new ImageIcon(imgPath+"background.jpg").getImage();
+BackGround_img = new ImageIcon("../Main/src/ImageIcon/background.jpg").getImage();
 //전체 배경화면 이미지를 받습니다.
 
 Leaf_img = new Image[3];
@@ -112,7 +112,7 @@ int newWidth = 70;
 int newHeight = 70;
 for(int i = 0 ; i <Leaf_img.length ; ++i){
 	 Image originalImage =
-new ImageIcon(imgPath+"leaf_" + i + ".png").getImage();
+new ImageIcon("../Main/src/ImageIcon/leaf_" + i + ".png").getImage();
 Leaf_img[i] =originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);
 }
 //구름을 3개 동시에 그리는데 편의상 배열로 3개를 동시에 받는다.
@@ -120,7 +120,7 @@ Leaf_img[i] =originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_DE
 Explo_img = new Image[3];
 for (int i = 0; i < Explo_img.length ; ++i ){
 Explo_img[i] = 
-new ImageIcon(imgPath+"explo_" + i + ".png").getImage();
+new ImageIcon("../Main/src/ImageIcon/explo_" + i + ".png").getImage();
 }
 //폭발 애니메이션 표현을 위해 
 //파일이름을 넘버마다 나눠 배열로 담는다.
