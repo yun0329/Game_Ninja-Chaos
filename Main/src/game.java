@@ -98,7 +98,7 @@ int playerWidth =60;
 int playerHeight =70;
 for(int i = 0 ; i < Player_img.length ; ++i){
 Image playerImage = 
-new ImageIcon(imgPath+ "f15k_" + i + ".png").getImage();
+new ImageIcon(imgPath+ "f15k_" + i + ".jpg").getImage();
 Player_img[i] = playerImage.getScaledInstance(playerWidth, playerHeight, Image.SCALE_DEFAULT);
 }
 //플레이어 애니메이션 표현을 위해 파일이름을 
@@ -132,7 +132,7 @@ new ImageIcon(imgPath+"explo_" + i + ".png").getImage();
 //m_h = ImageHeightValue("Missile.png");
 //이미지 크기 계산 메소드를 삭제합니다.
 //Swing에서 지원되는 ImageIcon으로 
-//이미지 크기값을 쉽게 얻을수 있군요.
+//이미지 크기값을 쉽게 얻을수 있군요. 
 
 game_Score = 0;//게임 스코어 초기화
 player_Hitpoint = 3;//최초 플레이어 체력
