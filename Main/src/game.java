@@ -15,6 +15,7 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 int f_width ;
 int f_height ;
  
+GameOverScreen gameOverScreen;
 int x, y; 
  
 int[] cx ={0, 0, 0}; // 배경 스크롤 속도 제어용 변수
@@ -73,6 +74,7 @@ game_Frame(){
   
  setTitle("Ninja-Chaos");
  setSize(f_width, f_height);
+ gameOverScreen = new GameOverScreen(this);
   
  Dimension screen = tk.getScreenSize();
 
@@ -157,10 +159,58 @@ ExplosionProcess();//폭파처리 메소드 실행
 repaint(); 
 
 Thread.sleep(20);
+
+if (player_Hitpoint <= 0) {
+    // Player's hit points are zero, show game over screen
+    showGameOverScreen();
+    break;
+}
 cnt ++;
 }
 }catch (Exception e){}
 }
+private void showGameOverScreen() {
+    // Show the game over screen
+    getContentPane().removeAll();
+    getContentPane().add(gameOverScreen);
+    validate();
+    repaint();
+}
+public void resetGame() {
+    // Reset the game state
+    player_Hitpoint = 3;
+    game_Score = 0;
+    x = 100;
+    y = 100;
+
+    // Remove the game over screen and start a new thread
+    getContentPane().removeAll();
+    start();
+}
+
+
+class GameOverScreen extends JPanel {
+    private JButton resetButton;
+
+    GameOverScreen(game_Frame frame) {
+        setLayout(new BorderLayout());
+
+        // Create a reset button
+        resetButton = new JButton("Reset");
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Reset the game when the button is clicked
+                frame.resetGame();
+            }
+        });
+
+        // Add components to the panel
+        add(new JLabel("Game Over", JLabel.CENTER), BorderLayout.NORTH);
+        add(resetButton, BorderLayout.CENTER);
+    }
+}
+
 
 public void MissileProcess(){ 
 if ( KeySpace ){
