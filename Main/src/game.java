@@ -17,8 +17,8 @@ int f_height ;
  
 int x, y; 
  
-int[] cx ={0, 0, 0}; // ¹è°æ ½ºÅ©·Ñ ¼Óµµ Á¦¾î¿ë º¯¼ö
-int bx = 0; // ÀüÃ¼ ¹è°æ ½ºÅ©·Ñ ¿ë º¯¼ö
+int[] cx ={0, 0, 0}; // ë°°ê²½ ìŠ¤í¬ë¡¤ ì†ë„ ì œì–´ìš© ë³€ìˆ˜
+int bx = 0; // ì „ì²´ ë°°ê²½ ìŠ¤í¬ë¡¤ ìš© ë³€ìˆ˜
 
 boolean KeyUp = false;
 boolean KeyDown = false;
@@ -30,14 +30,14 @@ boolean KeySpace = false;
 
 int cnt; 
 
-int player_Speed; // À¯ÀúÀÇ Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÌ´Â ¼Óµµ¸¦ Á¶ÀıÇÒ º¯¼ö
-int missile_Speed; // ¹Ì»çÀÏÀÌ ³¯¶ó°¡´Â ¼Óµµ Á¶ÀıÇÒ º¯¼ö
-int fire_Speed; // ¹Ì»çÀÏ ¿¬»ç ¼Óµµ Á¶Àı º¯¼ö
-int enemy_speed; // Àû ÀÌµ¿ ¼Óµµ ¼³Á¤
+int player_Speed; // ìœ ì €ì˜ ìºë¦­í„°ê°€ ì›€ì§ì´ëŠ” ì†ë„ë¥¼ ì¡°ì ˆí•  ë³€ìˆ˜
+int missile_Speed; // ë¯¸ì‚¬ì¼ì´ ë‚ ë¼ê°€ëŠ” ì†ë„ ì¡°ì ˆí•  ë³€ìˆ˜
+int fire_Speed; // ë¯¸ì‚¬ì¼ ì—°ì‚¬ ì†ë„ ì¡°ì ˆ ë³€ìˆ˜
+int enemy_speed; // ì  ì´ë™ ì†ë„ ì„¤ì •
 int player_Status = 0; 
-// À¯Àú Ä³¸¯ÅÍ »óÅÂ Ã¼Å© º¯¼ö 0 : Æò»ó½Ã, 1: ¹Ì»çÀÏ¹ß»ç, 2: Ãæµ¹
-int game_Score; // °ÔÀÓ Á¡¼ö °è»ê
-int player_Hitpoint; // ÇÃ·¹ÀÌ¾î Ä³¸¯ÅÍÀÇ Ã¼·Â
+// ìœ ì € ìºë¦­í„° ìƒíƒœ ì²´í¬ ë³€ìˆ˜ 0 : í‰ìƒì‹œ, 1: ë¯¸ì‚¬ì¼ë°œì‚¬, 2: ì¶©ëŒ
+int game_Score; // ê²Œì„ ì ìˆ˜ ê³„ì‚°
+int player_Hitpoint; // í”Œë ˆì´ì–´ ìºë¦­í„°ì˜ ì²´ë ¥
 
 
 
@@ -46,10 +46,10 @@ Thread th;
 Toolkit tk = Toolkit.getDefaultToolkit();
 
 Image[] Player_img;
-//ÇÃ·¹ÀÌ¾î ¾Ö´Ï¸ŞÀÌ¼Ç Ç¥ÇöÀ» À§ÇØ ÀÌ¹ÌÁö¸¦ ¹è¿­·Î ¹ŞÀ½
-Image BackGround_img; //¹è°æÈ­¸é ÀÌ¹ÌÁö
-Image[] Leaf_img; //¿òÁ÷ÀÌ´Â ¹è°æ¿ë ÀÌ¹ÌÁö¹è¿­
-Image[] Explo_img; //Æø¹ßÀÌÆåÆ®¿ë ÀÌ¹ÌÁö¹è¿­
+//í”Œë ˆì´ì–´ ì• ë‹ˆë©”ì´ì…˜ í‘œí˜„ì„ ìœ„í•´ ì´ë¯¸ì§€ë¥¼ ë°°ì—´ë¡œ ë°›ìŒ
+Image BackGround_img; //ë°°ê²½í™”ë©´ ì´ë¯¸ì§€
+Image[] Leaf_img; //ì›€ì§ì´ëŠ” ë°°ê²½ìš© ì´ë¯¸ì§€ë°°ì—´
+Image[] Explo_img; //í­ë°œì´í™íŠ¸ìš© ì´ë¯¸ì§€ë°°ì—´
 
 Image Missile_img;
 Image Enemy_img; 
@@ -57,7 +57,7 @@ Image Enemy_img;
 ArrayList Missile_List = new ArrayList();
 ArrayList Enemy_List = new ArrayList();
 ArrayList Explosion_List = new ArrayList();
-//´Ù¼öÀÇ Æø¹ß ÀÌÆåÆ®¸¦ Ã³¸®ÇÏ±â À§ÇÑ ¹è¿­
+//ë‹¤ìˆ˜ì˜ í­ë°œ ì´í™íŠ¸ë¥¼ ì²˜ë¦¬í•˜ê¸° ìœ„í•œ ë°°ì—´
 
 Image buffImage; 
 Graphics buffg;
@@ -65,7 +65,7 @@ Graphics buffg;
 Missile ms; 
 Enemy en; 
 
-Explosion ex; //Æø¹ß ÀÌÆåÆ®¿ë Å¬·¡½º Á¢±Ù Å°
+Explosion ex; //í­ë°œ ì´í™íŠ¸ìš© í´ë˜ìŠ¤ ì ‘ê·¼ í‚¤
 
 game_Frame(){
  init();
@@ -91,7 +91,7 @@ f_height = 460;
 
 Missile_img = new ImageIcon("../Main/src/ImageIcon/Missile.png").getImage();
 Enemy_img = new ImageIcon("../Main/src/ImageIcon/enemy.png").getImage();
-//ÀÌ¹ÌÁö ¸¸µå´Â ¹æ½ÄÀ» ImageIconÀ¸·Î º¯°æ.
+//ì´ë¯¸ì§€ ë§Œë“œëŠ” ë°©ì‹ì„ ImageIconìœ¼ë¡œ ë³€ê²½.
 
 Player_img = new Image[5];
 int playerWidth =120;
@@ -101,11 +101,11 @@ Image playerImage =
 new ImageIcon( "../Main/src/ImageIcon/f15k_" + i + ".png").getImage();
 Player_img[i] = playerImage.getScaledInstance(playerWidth, playerHeight, Image.SCALE_DEFAULT);
 }
-//ÇÃ·¹ÀÌ¾î ¾Ö´Ï¸ŞÀÌ¼Ç Ç¥ÇöÀ» À§ÇØ ÆÄÀÏÀÌ¸§À» 
-//³Ñ¹ö¸¶´Ù ³ª´² ¹è¿­·Î ´ã´Â´Ù.
+//í”Œë ˆì´ì–´ ì• ë‹ˆë©”ì´ì…˜ í‘œí˜„ì„ ìœ„í•´ íŒŒì¼ì´ë¦„ì„ 
+//ë„˜ë²„ë§ˆë‹¤ ë‚˜ëˆ  ë°°ì—´ë¡œ ë‹´ëŠ”ë‹¤.
 
 BackGround_img = new ImageIcon("../Main/src/ImageIcon/background.jpg").getImage();
-//ÀüÃ¼ ¹è°æÈ­¸é ÀÌ¹ÌÁö¸¦ ¹Ş½À´Ï´Ù.
+//ì „ì²´ ë°°ê²½í™”ë©´ ì´ë¯¸ì§€ë¥¼ ë°›ìŠµë‹ˆë‹¤.
 
 Leaf_img = new Image[3];
 int newWidth = 120;
@@ -115,25 +115,25 @@ for(int i = 0 ; i <Leaf_img.length ; ++i){
 new ImageIcon("../Main/src/ImageIcon/leaf_" + i + ".png").getImage();
 Leaf_img[i] =originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT);
 }
-//±¸¸§À» 3°³ µ¿½Ã¿¡ ±×¸®´Âµ¥ ÆíÀÇ»ó ¹è¿­·Î 3°³¸¦ µ¿½Ã¿¡ ¹Ş´Â´Ù.
+//êµ¬ë¦„ì„ 3ê°œ ë™ì‹œì— ê·¸ë¦¬ëŠ”ë° í¸ì˜ìƒ ë°°ì—´ë¡œ 3ê°œë¥¼ ë™ì‹œì— ë°›ëŠ”ë‹¤.
 
 Explo_img = new Image[3];
 for (int i = 0; i < Explo_img.length ; ++i ){
 Explo_img[i] = 
 new ImageIcon("../Main/src/ImageIcon/explo_" + i + ".png").getImage();
 }
-//Æø¹ß ¾Ö´Ï¸ŞÀÌ¼Ç Ç¥ÇöÀ» À§ÇØ 
-//ÆÄÀÏÀÌ¸§À» ³Ñ¹ö¸¶´Ù ³ª´² ¹è¿­·Î ´ã´Â´Ù.
-//¸ğµç ÀÌ¹ÌÁö´Â SwingÀÇ ImageIconÀ¸·Î ¹Ş¾Æ ÀÌ¹ÌÁö ³ĞÀÌ,³ôÀÌ // °ªÀ» ¹Ù·Î ¾òÀ» ¼ö ÀÖ°Ô ÇÑ´Ù.
+//í­ë°œ ì• ë‹ˆë©”ì´ì…˜ í‘œí˜„ì„ ìœ„í•´ 
+//íŒŒì¼ì´ë¦„ì„ ë„˜ë²„ë§ˆë‹¤ ë‚˜ëˆ  ë°°ì—´ë¡œ ë‹´ëŠ”ë‹¤.
+//ëª¨ë“  ì´ë¯¸ì§€ëŠ” Swingì˜ ImageIconìœ¼ë¡œ ë°›ì•„ ì´ë¯¸ì§€ ë„“ì´,ë†’ì´ // ê°’ì„ ë°”ë¡œ ì–»ì„ ìˆ˜ ìˆê²Œ í•œë‹¤.
 
 
-game_Score = 0;//°ÔÀÓ ½ºÄÚ¾î ÃÊ±âÈ­
-player_Hitpoint = 3;//ÃÖÃÊ ÇÃ·¹ÀÌ¾î Ã¼·Â
+game_Score = 0;//ê²Œì„ ìŠ¤ì½”ì–´ ì´ˆê¸°í™”
+player_Hitpoint = 3;//ìµœì´ˆ í”Œë ˆì´ì–´ ì²´ë ¥
   
-player_Speed = 5; //À¯Àú Ä³¸¯ÅÍ ¿òÁ÷ÀÌ´Â ¼Óµµ ¼³Á¤
-missile_Speed = 11; //¹Ì»çÀÏ ¿òÁ÷ÀÓ ¼Óµµ ¼³Á¤
-fire_Speed = 15; //¹Ì»çÀÏ ¿¬»ç ¼Óµµ ¼³Á¤
-enemy_speed = 7;//ÀûÀÌ ³¯¶ó¿À´Â ¼Óµµ ¼³Á¤
+player_Speed = 5; //ìœ ì € ìºë¦­í„° ì›€ì§ì´ëŠ” ì†ë„ ì„¤ì •
+missile_Speed = 11; //ë¯¸ì‚¬ì¼ ì›€ì§ì„ ì†ë„ ì„¤ì •
+fire_Speed = 15; //ë¯¸ì‚¬ì¼ ì—°ì‚¬ ì†ë„ ì„¤ì •
+enemy_speed = 7;//ì ì´ ë‚ ë¼ì˜¤ëŠ” ì†ë„ ì„¤ì •
 
 }
 public void start(){
@@ -147,13 +147,22 @@ th.start();
 
 public void run() {
     try {
-        while (true) {
+        while (player_Hitpoint > -1) {
             KeyProcess();
             EnemyProcess();
             MissileProcess();
             ExplosionProcess();
             repaint();
             Thread.sleep(20);
+            if (game_Score == 200) {
+            	enemy_speed = 12;
+            }
+            else if (game_Score == 300) {
+            	enemy_speed = 15;
+            }
+            else if (game_Score == 400) {
+            	enemy_speed = 18;
+            }
             cnt++;
 
           
@@ -175,13 +184,13 @@ public void showGameOver() {
 public void MissileProcess(){ 
 if ( KeySpace ){
 player_Status = 1;
-//¹Ì»çÀÏÀ» ¹ß»çÇÏ¸é ÇÃ·¹ÀÌ¾î Ä³¸¯ÅÍ »óÅÂ¸¦ 1·Î º¯°æ.
+//ë¯¸ì‚¬ì¼ì„ ë°œì‚¬í•˜ë©´ í”Œë ˆì´ì–´ ìºë¦­í„° ìƒíƒœë¥¼ 1ë¡œ ë³€ê²½.
 
 if( ( cnt % fire_Speed ) == 0){
-//ÇÃ·¹ÀÌ¾îÀÇ ¹Ì»çÀÏ ¿¬»ç¼Óµµ¸¦ Á¶ÀıÇÑ´Ù.
+//í”Œë ˆì´ì–´ì˜ ë¯¸ì‚¬ì¼ ì—°ì‚¬ì†ë„ë¥¼ ì¡°ì ˆí•œë‹¤.
 
 ms = new Missile(x+150, y+30, missile_Speed);
-//¹Ì»çÀÏ ÀÌµ¿ ¼Óµµ °ªÀ» Ãß°¡·Î ¹Ş´Â´Ù
+//ë¯¸ì‚¬ì¼ ì´ë™ ì†ë„ ê°’ì„ ì¶”ê°€ë¡œ ë°›ëŠ”ë‹¤
 Missile_List.add(ms); 
 }
 }
@@ -197,24 +206,24 @@ for (int j = 0 ; j < Enemy_List.size(); ++ j){
 en = (Enemy) Enemy_List.get(j);
 
 if (Crash(ms.x, ms.y, en.x, en.y, Missile_img, Enemy_img)) {
-//¹Ì»çÀÏÀÇ ÁÂÇ¥ ¹× ÀÌ¹ÌÁöÆÄÀÏ, 
-//ÀûÀÇ ÁÂÇ¥¹× ÀÌ¹ÌÁö ÆÄÀÏÀ» ¹Ş¾Æ
-//Ãæµ¹ÆÇÁ¤ ¸Ş¼Òµå·Î ³Ñ±â°í true,false°ªÀ» 
-//¸®ÅÏ ¹Ş¾Æ true¸é ¾Æ·¡¸¦ ½ÇÇàÇÕ´Ï´Ù.
+//ë¯¸ì‚¬ì¼ì˜ ì¢Œí‘œ ë° ì´ë¯¸ì§€íŒŒì¼, 
+//ì ì˜ ì¢Œí‘œë° ì´ë¯¸ì§€ íŒŒì¼ì„ ë°›ì•„
+//ì¶©ëŒíŒì • ë©”ì†Œë“œë¡œ ë„˜ê¸°ê³  true,falseê°’ì„ 
+//ë¦¬í„´ ë°›ì•„ trueë©´ ì•„ë˜ë¥¼ ì‹¤í–‰í•©ë‹ˆë‹¤.
 
 Missile_List.remove(i);
 Enemy_List.remove(j);
 
-game_Score += 10; //°ÔÀÓ Á¡¼ö¸¦ +10Á¡.
+game_Score += 10; //ê²Œì„ ì ìˆ˜ë¥¼ +10ì .
 
 ex = new Explosion(en.x + Enemy_img.getWidth(null) / 2, en.y + Enemy_img.getHeight(null) / 2 , 0);
-//ÀûÀÌ À§Ä¡ÇØÀÖ´Â °÷ÀÇ Áß½É ÁÂÇ¥ x,y °ª°ú 
-//Æø¹ß ¼³Á¤À» ¹ŞÀº °ª ( 0 ¶Ç´Â 1 )À» ¹Ş½À´Ï´Ù.
-//Æø¹ß ¼³Á¤ °ª - 0 : Æø¹ß , 1 : ´Ü¼ø ÇÇ°İ 
+//ì ì´ ìœ„ì¹˜í•´ìˆëŠ” ê³³ì˜ ì¤‘ì‹¬ ì¢Œí‘œ x,y ê°’ê³¼ 
+//í­ë°œ ì„¤ì •ì„ ë°›ì€ ê°’ ( 0 ë˜ëŠ” 1 )ì„ ë°›ìŠµë‹ˆë‹¤.
+//í­ë°œ ì„¤ì • ê°’ - 0 : í­ë°œ , 1 : ë‹¨ìˆœ í”¼ê²© 
 
 Explosion_List.add(ex); 
-//Ãæµ¹ÆÇÁ¤À¸·Î »ç¶óÁø ÀûÀÇ À§Ä¡¿¡ 
-//ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+//ì¶©ëŒíŒì •ìœ¼ë¡œ ì‚¬ë¼ì§„ ì ì˜ ìœ„ì¹˜ì— 
+//ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
 
 }
 }
@@ -231,65 +240,65 @@ Enemy_List.remove(i);
 }
 
 if(Crash(x, y, en.x, en.y, Player_img[0], Enemy_img)){
-//ÇÃ·¹ÀÌ¾î¿Í ÀûÀÇ Ãæµ¹À» ÆÇÁ¤ÇÏ¿©
-//boolean°ªÀ» ¸®ÅÏ ¹Ş¾Æ true¸é ¾Æ·¡¸¦ ½ÇÇàÇÕ´Ï´Ù. 
+//í”Œë ˆì´ì–´ì™€ ì ì˜ ì¶©ëŒì„ íŒì •í•˜ì—¬
+//booleanê°’ì„ ë¦¬í„´ ë°›ì•„ trueë©´ ì•„ë˜ë¥¼ ì‹¤í–‰í•©ë‹ˆë‹¤. 
 
-player_Hitpoint --; //ÇÃ·¹ÀÌ¾î Ã¼·ÂÀ» 1±ï½À´Ï´Ù.
-Enemy_List.remove(i); //ÀûÀ» Á¦°ÅÇÕ´Ï´Ù.
+player_Hitpoint --; //í”Œë ˆì´ì–´ ì²´ë ¥ì„ 1ê¹ìŠµë‹ˆë‹¤.
+Enemy_List.remove(i); //ì ì„ ì œê±°í•©ë‹ˆë‹¤.
 game_Score += 10; 
-//Á¦°ÅµÈ ÀûÀ¸·Î °ÔÀÓ½ºÄÚ¾î¸¦ 10 Áõ°¡½ÃÅµ´Ï´Ù.
+//ì œê±°ëœ ì ìœ¼ë¡œ ê²Œì„ìŠ¤ì½”ì–´ë¥¼ 10 ì¦ê°€ì‹œí‚µë‹ˆë‹¤.
 
 ex = new Explosion(en.x + Enemy_img.getWidth(null) / 2, en.y + Enemy_img.getHeight(null) / 2, 0 );
-//ÀûÀÌ À§Ä¡ÇØÀÖ´Â °÷ÀÇ Áß½É ÁÂÇ¥ x,y °ª°ú 
-//Æø¹ß ¼³Á¤À» ¹ŞÀº °ª ( 0 ¶Ç´Â 1 )À» ¹Ş½À´Ï´Ù.
-//Æø¹ß ¼³Á¤ °ª - 0 : Æø¹ß , 1 : ´Ü¼ø ÇÇ°İ 
+//ì ì´ ìœ„ì¹˜í•´ìˆëŠ” ê³³ì˜ ì¤‘ì‹¬ ì¢Œí‘œ x,y ê°’ê³¼ 
+//í­ë°œ ì„¤ì •ì„ ë°›ì€ ê°’ ( 0 ë˜ëŠ” 1 )ì„ ë°›ìŠµë‹ˆë‹¤.
+//í­ë°œ ì„¤ì • ê°’ - 0 : í­ë°œ , 1 : ë‹¨ìˆœ í”¼ê²© 
 
 Explosion_List.add(ex); 
-//Á¦°ÅµÈ ÀûÀ§Ä¡¿¡ Æø¹ß ÀÌÆåÆ®¸¦ Ãß°¡ÇÕ´Ï´Ù.
+//ì œê±°ëœ ì ìœ„ì¹˜ì— í­ë°œ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 
 ex = new Explosion(x, y, 1 );
-//ÀûÀÌ À§Ä¡ÇØÀÖ´Â °÷ÀÇ Áß½É ÁÂÇ¥ x,y °ª°ú 
-//Æø¹ß ¼³Á¤À» ¹ŞÀº °ª ( 0 ¶Ç´Â 1 )À» ¹Ş½À´Ï´Ù.
-//Æø¹ß ¼³Á¤ °ª - 0 : Æø¹ß , 1 : ´Ü¼ø ÇÇ°İ 
+//ì ì´ ìœ„ì¹˜í•´ìˆëŠ” ê³³ì˜ ì¤‘ì‹¬ ì¢Œí‘œ x,y ê°’ê³¼ 
+//í­ë°œ ì„¤ì •ì„ ë°›ì€ ê°’ ( 0 ë˜ëŠ” 1 )ì„ ë°›ìŠµë‹ˆë‹¤.
+//í­ë°œ ì„¤ì • ê°’ - 0 : í­ë°œ , 1 : ë‹¨ìˆœ í”¼ê²© 
 
 Explosion_List.add(ex);
-//Ãæµ¹½Ã ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¿¡ Ãæµ¹¿ë ÀÌÆåÆ®¸¦ Ãß°¡.
+//ì¶©ëŒì‹œ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ì— ì¶©ëŒìš© ì´í™íŠ¸ë¥¼ ì¶”ê°€.
 
 }
 }
 if ( cnt % 200 == 0 ){ 
-en = new Enemy(f_width + 100, 100, enemy_speed);
+en = new Enemy(f_width + 100, 65, enemy_speed);
 Enemy_List.add(en); 
-en = new Enemy(f_width + 100, 200, enemy_speed);
+en = new Enemy(f_width + 100, 135, enemy_speed);
 Enemy_List.add(en);
-en = new Enemy(f_width + 100, 300, enemy_speed);
+en = new Enemy(f_width + 100, 210, enemy_speed);
 Enemy_List.add(en);
-en = new Enemy(f_width + 100, 400, enemy_speed);
+en = new Enemy(f_width + 100, 285, enemy_speed);
 Enemy_List.add(en);
-en = new Enemy(f_width + 100, 500, enemy_speed);
+en = new Enemy(f_width + 100, 350, enemy_speed);
 Enemy_List.add(en);
-//Àû ¿òÁ÷ÀÓ ¼Óµµ¸¦ Ãß°¡·Î ¹Ş¾Æ ÀûÀ» »ı¼ºÇÑ´Ù.
+//ì  ì›€ì§ì„ ì†ë„ë¥¼ ì¶”ê°€ë¡œ ë°›ì•„ ì ì„ ìƒì„±í•œë‹¤.
 
 }
 }
 
  public void ExplosionProcess(){
-  // Æø¹ß ÀÌÆåÆ® Ã³¸®¿ë ¸Ş¼Òµå
+  // í­ë°œ ì´í™íŠ¸ ì²˜ë¦¬ìš© ë©”ì†Œë“œ
   
   for (int i = 0 ;  i < Explosion_List.size(); ++i){
    ex = (Explosion) Explosion_List.get(i);
    ex.effect();
-   //ÀÌÆåÆ® ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ³ªÅ¸³»±âÀ§ÇØ
-   //ÀÌÆåÆ® Ã³¸® Ãß°¡°¡ ¹ß»ıÇÏ¸é ÇØ´ç ¸Ş¼Òµå¸¦ È£Ãâ.
+   //ì´í™íŠ¸ ì• ë‹ˆë©”ì´ì…˜ì„ ë‚˜íƒ€ë‚´ê¸°ìœ„í•´
+   //ì´í™íŠ¸ ì²˜ë¦¬ ì¶”ê°€ê°€ ë°œìƒí•˜ë©´ í•´ë‹¹ ë©”ì†Œë“œë¥¼ í˜¸ì¶œ.
    
   }
  }
 
 
 public boolean Crash(int x1, int y1, int x2, int y2, Image img1, Image img2){
-//±âÁ¸ Ãæµ¹ ÆÇÁ¤ ¼Ò½º¸¦ º¯°æÇÕ´Ï´Ù.
-//ÀÌÁ¦ ÀÌ¹ÌÁö º¯¼ö¸¦ ¹Ù·Î ¹Ş¾Æ ÇØ´ç ÀÌ¹ÌÁöÀÇ ³ĞÀÌ, ³ôÀÌ°ªÀ»
-//¹Ù·Î °è»êÇÕ´Ï´Ù.
+//ê¸°ì¡´ ì¶©ëŒ íŒì • ì†ŒìŠ¤ë¥¼ ë³€ê²½í•©ë‹ˆë‹¤.
+//ì´ì œ ì´ë¯¸ì§€ ë³€ìˆ˜ë¥¼ ë°”ë¡œ ë°›ì•„ í•´ë‹¹ ì´ë¯¸ì§€ì˜ ë„“ì´, ë†’ì´ê°’ì„
+//ë°”ë¡œ ê³„ì‚°í•©ë‹ˆë‹¤.
 
 boolean check = false;
 
@@ -299,13 +308,13 @@ if ( Math.abs( ( x1 + img1.getWidth(null) / 2 )
  && Math.abs( ( y1 + img1.getHeight(null) / 2 )  
 - ( y2 + img2.getHeight(null) / 2 ))  
 < ( img2.getHeight(null)/2 + img1.getHeight(null)/2 ) ){
-//ÀÌ¹ÌÁö ³ĞÀÌ, ³ôÀÌ°ªÀ» ¹Ù·Î ¹Ş¾Æ °è»êÇÕ´Ï´Ù.
+//ì´ë¯¸ì§€ ë„“ì´, ë†’ì´ê°’ì„ ë°”ë¡œ ë°›ì•„ ê³„ì‚°í•©ë‹ˆë‹¤.
 
 
-check = true;//À§ °ªÀÌ true¸é check¿¡ true¸¦ Àü´ŞÇÕ´Ï´Ù.
+check = true;//ìœ„ ê°’ì´ trueë©´ checkì— trueë¥¼ ì „ë‹¬í•©ë‹ˆë‹¤.
 }else{ check = false;}
 
-return check; //checkÀÇ °ªÀ» ¸Ş¼Òµå¿¡ ¸®ÅÏ ½ÃÅµ´Ï´Ù.
+return check; //checkì˜ ê°’ì„ ë©”ì†Œë“œì— ë¦¬í„´ ì‹œí‚µë‹ˆë‹¤.
 
  }
 
@@ -319,14 +328,14 @@ update(g);
 
 public void update(Graphics g){
 
-Draw_Background(); //¹è°æ ÀÌ¹ÌÁö ±×¸®±â ¸Ş¼Òµå ½ÇÇà
-Draw_Player(); //ÇÃ·¹ÀÌ¾î¸¦ ±×¸®´Â ¸Ş¼Òµå ÀÌ¸§ º¯°æ
+Draw_Background(); //ë°°ê²½ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸° ë©”ì†Œë“œ ì‹¤í–‰
+Draw_Player(); //í”Œë ˆì´ì–´ë¥¼ ê·¸ë¦¬ëŠ” ë©”ì†Œë“œ ì´ë¦„ ë³€ê²½
 
 Draw_Enemy(); 
 Draw_Missile();
 
-Draw_Explosion();//Æø¹ßÀÌÆåÆ®±×¸®±â ¸Ş¼Òµå ½ÇÇà
-Draw_StatusText();//»óÅÂ Ç¥½Ã ÅØ½ºÆ®¸¦ ±×¸®´Â ¸Ş¼Òµå ½ÇÇà
+Draw_Explosion();//í­ë°œì´í™íŠ¸ê·¸ë¦¬ê¸° ë©”ì†Œë“œ ì‹¤í–‰
+Draw_StatusText();//ìƒíƒœ í‘œì‹œ í…ìŠ¤íŠ¸ë¥¼ ê·¸ë¦¬ëŠ” ë©”ì†Œë“œ ì‹¤í–‰
 
 g.drawImage(buffImage, 0, 0, this); 
 }
@@ -357,27 +366,27 @@ public void Draw_Player(){
 
 switch (player_Status){ 
 
-case 0 : // Æò»ó½Ã
+case 0 : // í‰ìƒì‹œ
 if((cnt / 5 %2) == 0){ 
 buffg.drawImage(Player_img[1], x, y, this);
 
 }else { buffg.drawImage(Player_img[2], x, y, this); }
-//¿£ÁøÂÊ¿¡¼­ ºÒÀ» »Õ´Â ÀÌ¹ÌÁö¸¦ ¹ø°¥¾Æ ±×·ÁÁØ´Ù.
+//ì—”ì§„ìª½ì—ì„œ ë¶ˆì„ ë¿œëŠ” ì´ë¯¸ì§€ë¥¼ ë²ˆê°ˆì•„ ê·¸ë ¤ì¤€ë‹¤.
 
 break;
 
-case 1 : // ¹Ì»çÀÏ¹ß»ç
+case 1 : // ë¯¸ì‚¬ì¼ë°œì‚¬
 if((cnt / 5 % 2) == 0){ 
 buffg.drawImage(Player_img[3], x, y, this);
 }else { buffg.drawImage(Player_img[4], x, y, this); }
-//¹Ì»çÀÏÀ» ½î´ÂµíÇÑ ÀÌ¹ÌÁö¸¦ ¹ø°¥¾Æ ±×·ÁÁØ´Ù.
+//ë¯¸ì‚¬ì¼ì„ ì˜ëŠ”ë“¯í•œ ì´ë¯¸ì§€ë¥¼ ë²ˆê°ˆì•„ ê·¸ë ¤ì¤€ë‹¤.
 
 player_Status = 0;
-//¹Ì»çÀÏ ½î±â°¡ ³¡³ª¸é ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ 0À¸·Î µ¹¸°´Ù. 
+//ë¯¸ì‚¬ì¼ ì˜ê¸°ê°€ ëë‚˜ë©´ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ 0ìœ¼ë¡œ ëŒë¦°ë‹¤. 
 
 break;
 
-case 2 : // Ãæµ¹
+case 2 : // ì¶©ëŒ
 break;
 
 }
@@ -399,14 +408,14 @@ buffg.drawImage(Enemy_img, en.x, en.y, this);
 }
 
 public void Draw_Explosion(){
-//Æø¹ß ÀÌÆåÆ®¸¦ ±×¸®´Â ºÎºĞ ÀÔ´Ï´Ù.
+//í­ë°œ ì´í™íŠ¸ë¥¼ ê·¸ë¦¬ëŠ” ë¶€ë¶„ ì…ë‹ˆë‹¤.
 
 for (int i = 0 ; i < Explosion_List.size() ; ++i ){
 ex = (Explosion)Explosion_List.get(i);
-//Æø¹ß ÀÌÆåÆ®ÀÇ Á¸Àç À¯¹«¸¦ Ã¼Å©ÇÏ¿© ¸®½ºÆ®¸¦ ¹ŞÀ½.
+//í­ë°œ ì´í™íŠ¸ì˜ ì¡´ì¬ ìœ ë¬´ë¥¼ ì²´í¬í•˜ì—¬ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ìŒ.
 
 if (ex.damage == 0){
-// ¼³Á¤°ªÀÌ 0 ÀÌ¸é Æø¹ß¿ë ÀÌ¹ÌÁö ±×¸®±â
+// ì„¤ì •ê°’ì´ 0 ì´ë©´ í­ë°œìš© ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
 
 if ( ex.ex_cnt < 7  ) {
 buffg.drawImage( Explo_img[0], ex.x - 
@@ -423,10 +432,10 @@ Explo_img[2].getHeight(null) / 2, this);
 }else if( ex.ex_cnt > 21 ) {
 Explosion_List.remove(i);
 ex.ex_cnt = 0;
-//Æø¹ßÀº µû·Î Ä«¿îÅÍ¸¦ °è»êÇÏ¿©
-//ÀÌ¹ÌÁö¸¦ ¼øÂ÷ÀûÀ¸·Î ±×¸².
+//í­ë°œì€ ë”°ë¡œ ì¹´ìš´í„°ë¥¼ ê³„ì‚°í•˜ì—¬
+//ì´ë¯¸ì§€ë¥¼ ìˆœì°¨ì ìœ¼ë¡œ ê·¸ë¦¼.
 }
-}else { //¼³Á¤°ªÀÌ 1ÀÌ¸é ´Ü¼ø ÇÇ°İ¿ë ÀÌ¹ÌÁö ±×¸®±â
+}else { //ì„¤ì •ê°’ì´ 1ì´ë©´ ë‹¨ìˆœ í”¼ê²©ìš© ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
 if ( ex.ex_cnt < 7  ) {
 buffg.drawImage(Explo_img[0], ex.x + 120,
 ex.y + 15, this);
@@ -439,66 +448,68 @@ ex.y + 10, this);
 }else if( ex.ex_cnt > 21 ) {
 Explosion_List.remove(i);
 ex.ex_cnt = 0;
-//´Ü¼ø ÇÇ°İ ¶ÇÇÑ ¼øÂ÷ÀûÀ¸·Î ÀÌ¹ÌÁö¸¦ ±×¸®Áö¸¸
-//±¸ºĞÀ» À§ÇØ ¾à°£ ´Ù¸¥ ¹æ½ÄÀ¸·Î ±×¸³´Ï´Ù.
+//ë‹¨ìˆœ í”¼ê²© ë˜í•œ ìˆœì°¨ì ìœ¼ë¡œ ì´ë¯¸ì§€ë¥¼ ê·¸ë¦¬ì§€ë§Œ
+//êµ¬ë¶„ì„ ìœ„í•´ ì•½ê°„ ë‹¤ë¥¸ ë°©ì‹ìœ¼ë¡œ ê·¸ë¦½ë‹ˆë‹¤.
 
 }
 }
 }
 }
 
-public void Draw_StatusText(){ //»óÅÂ Ã¼Å©¿ë  ÅØ½ºÆ®¸¦ ±×¸³´Ï´Ù.
+public void Draw_StatusText(){ //ìƒíƒœ ì²´í¬ìš©  í…ìŠ¤íŠ¸ë¥¼ ê·¸ë¦½ë‹ˆë‹¤.
 
 buffg.setFont(new Font("Defualt", Font.BOLD, 20));
-//ÆùÆ® ¼³Á¤À» ÇÕ´Ï´Ù.  ±âº»ÆùÆ®, ±½°Ô, »çÀÌÁî 20
+//í°íŠ¸ ì„¤ì •ì„ í•©ë‹ˆë‹¤.  ê¸°ë³¸í°íŠ¸, êµµê²Œ, ì‚¬ì´ì¦ˆ 20
 
 int xCoordinate = 20;
 int yCoordinate = 30;
 
 buffg.drawString("SCORE: " + game_Score, xCoordinate, yCoordinate+ 20);
-//ÁÂÇ¥ x : 1000, y : 70¿¡ ½ºÄÚ¾î¸¦ Ç¥½ÃÇÕ´Ï´Ù.
+//ì¢Œí‘œ x : 1000, y : 70ì— ìŠ¤ì½”ì–´ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.
 
 buffg.drawString("HitPoint: " + player_Hitpoint, xCoordinate, yCoordinate + 40);
-//ÁÂÇ¥ x : 1000, y : 90¿¡ ÇÃ·¹ÀÌ¾î Ã¼·ÂÀ» Ç¥½ÃÇÕ´Ï´Ù.
+//ì¢Œí‘œ x : 1000, y : 90ì— í”Œë ˆì´ì–´ ì²´ë ¥ì„ í‘œì‹œí•©ë‹ˆë‹¤.
 
 buffg.drawString("Missile Count: " + Missile_List.size(), xCoordinate, yCoordinate + 60);
-//ÁÂÇ¥ x : 1000, y : 110¿¡ ³ªÅ¸³­ ¹Ì»çÀÏ ¼ö¸¦ Ç¥½ÃÇÕ´Ï´Ù.
+//ì¢Œí‘œ x : 1000, y : 110ì— ë‚˜íƒ€ë‚œ ë¯¸ì‚¬ì¼ ìˆ˜ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.
 
 buffg.drawString("Enemy Count: " + Enemy_List.size(), xCoordinate, yCoordinate + 80);
-//ÁÂÇ¥ x : 1000, y : 130¿¡ ³ªÅ¸³­ ÀûÀÇ ¼ö¸¦ Ç¥½ÃÇÕ´Ï´Ù.
+//ì¢Œí‘œ x : 1000, y : 130ì— ë‚˜íƒ€ë‚œ ì ì˜ ìˆ˜ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.
+
+buffg.drawString("Space barë¥¼ ëˆŒëŸ¬ í‘œì°½ì„ ë˜ì§€ì„¸ìš”. " + Enemy_List.size(), xCoordinate, yCoordinate + 100);
 
 }
 public void KeyProcess(){
 if(KeyUp == true) {
 if( y > 20 ) y -= 5;
-//Ä³¸¯ÅÍ°¡ º¸¿©Áö´Â È­¸é À§·Î ¸ø ³Ñ¾î°¡°Ô ÇÕ´Ï´Ù.
+//ìºë¦­í„°ê°€ ë³´ì—¬ì§€ëŠ” í™”ë©´ ìœ„ë¡œ ëª» ë„˜ì–´ê°€ê²Œ í•©ë‹ˆë‹¤.
 
 player_Status = 0;
-//ÀÌµ¿Å°°¡ ´­·ÁÁö¸é ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ 0À¸·Î µ¹¸³´Ï´Ù.
+//ì´ë™í‚¤ê°€ ëˆŒë ¤ì§€ë©´ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ 0ìœ¼ë¡œ ëŒë¦½ë‹ˆë‹¤.
 }
 
 if(KeyDown == true) {
 if( y+ Player_img[0].getHeight(null) < f_height ) y += 5;
-//Ä³¸¯ÅÍ°¡ º¸¿©Áö´Â È­¸é ¾Æ·¡·Î ¸ø ³Ñ¾î°¡°Ô ÇÕ´Ï´Ù.
+//ìºë¦­í„°ê°€ ë³´ì—¬ì§€ëŠ” í™”ë©´ ì•„ë˜ë¡œ ëª» ë„˜ì–´ê°€ê²Œ í•©ë‹ˆë‹¤.
 
 player_Status = 0;
-//ÀÌµ¿Å°°¡ ´­·ÁÁö¸é ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ 0À¸·Î µ¹¸³´Ï´Ù.
+//ì´ë™í‚¤ê°€ ëˆŒë ¤ì§€ë©´ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ 0ìœ¼ë¡œ ëŒë¦½ë‹ˆë‹¤.
 }
 
 if(KeyLeft == true) {
 if ( x > 0 ) x -= 5;
-//Ä³¸¯ÅÍ°¡ º¸¿©Áö´Â È­¸é ¿ŞÂÊÀ¸·Î ¸ø ³Ñ¾î°¡°Ô ÇÕ´Ï´Ù.
+//ìºë¦­í„°ê°€ ë³´ì—¬ì§€ëŠ” í™”ë©´ ì™¼ìª½ìœ¼ë¡œ ëª» ë„˜ì–´ê°€ê²Œ í•©ë‹ˆë‹¤.
 
 player_Status = 0;
-//ÀÌµ¿Å°°¡ ´­·ÁÁö¸é ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ 0À¸·Î µ¹¸³´Ï´Ù.
+//ì´ë™í‚¤ê°€ ëˆŒë ¤ì§€ë©´ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ 0ìœ¼ë¡œ ëŒë¦½ë‹ˆë‹¤.
 }
 
 if(KeyRight == true) {
 if ( x + Player_img[0].getWidth(null) < f_width ) x += 5;
-//Ä³¸¯ÅÍ°¡ º¸¿©Áö´Â È­¸é ¿À¸¥ÂÊÀ¸·Î ¸ø ³Ñ¾î°¡°Ô ÇÕ´Ï´Ù.
+//ìºë¦­í„°ê°€ ë³´ì—¬ì§€ëŠ” í™”ë©´ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ëª» ë„˜ì–´ê°€ê²Œ í•©ë‹ˆë‹¤.
 
 player_Status = 0;
-//ÀÌµ¿Å°°¡ ´­·ÁÁö¸é ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ 0À¸·Î µ¹¸³´Ï´Ù.
+//ì´ë™í‚¤ê°€ ëˆŒë ¤ì§€ë©´ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ 0ìœ¼ë¡œ ëŒë¦½ë‹ˆë‹¤.
 }
 }
 
@@ -555,18 +566,18 @@ class Missile{
 int x;
 int y; 
 
-int speed; // ¹Ì»çÀÏ ½ºÇÇµå º¯¼ö¸¦ Ãß°¡.
+int speed; // ë¯¸ì‚¬ì¼ ìŠ¤í”¼ë“œ ë³€ìˆ˜ë¥¼ ì¶”ê°€.
  
 Missile(int x, int y, int speed) {
 this.x = x; 
 this.y = y;
 
 this.speed = speed;
-// °´Ã¼ »ı¼º½Ã ¼Óµµ °ªÀ» Ãß°¡·Î ¹Ş½À´Ï´Ù.
+// ê°ì²´ ìƒì„±ì‹œ ì†ë„ ê°’ì„ ì¶”ê°€ë¡œ ë°›ìŠµë‹ˆë‹¤.
 
 }
 public void move(){
-x += speed; // ¹Ì»çÀÏ ½ºÇÇµå ¼Óµµ ¸¸Å­ ÀÌµ¿
+x += speed; // ë¯¸ì‚¬ì¼ ìŠ¤í”¼ë“œ ì†ë„ ë§Œí¼ ì´ë™
 }
 }
 
@@ -574,28 +585,28 @@ class Enemy{
 int x;
 int y;
 
-int speed; // Àû ÀÌµ¿ ¼Óµµ º¯¼ö¸¦ Ãß°¡
+int speed; // ì  ì´ë™ ì†ë„ ë³€ìˆ˜ë¥¼ ì¶”ê°€
 
 Enemy(int x, int y, int speed ) {
 this.x = x;
 this.y = y;
 
 this.speed = speed;
-// °´Ã¼ »ı¼º½Ã ¼Óµµ °ªÀ» Ãß°¡·Î ¹Ş½À´Ï´Ù.
+// ê°ì²´ ìƒì„±ì‹œ ì†ë„ ê°’ì„ ì¶”ê°€ë¡œ ë°›ìŠµë‹ˆë‹¤.
 
 }
 public void move(){ 
-x -= speed;// ÀûÀÌµ¿¼Óµµ¸¸Å­ ÀÌµ¿
+x -= speed;// ì ì´ë™ì†ë„ë§Œí¼ ì´ë™
 }
 }
 
 class Explosion{ 
-// ¿©·¯°³ÀÇ Æø¹ß ÀÌ¹ÌÁö¸¦ ±×¸®±âÀ§ÇØ Å¬·¡½º¸¦ Ãß°¡ÇÏ¿© °´Ã¼°ü¸® 
+// ì—¬ëŸ¬ê°œì˜ í­ë°œ ì´ë¯¸ì§€ë¥¼ ê·¸ë¦¬ê¸°ìœ„í•´ í´ë˜ìŠ¤ë¥¼ ì¶”ê°€í•˜ì—¬ ê°ì²´ê´€ë¦¬ 
 
-int x; //ÀÌ¹ÌÁö¸¦ ±×¸± x ÁÂÇ¥
-int y; //ÀÌ¹ÌÁö¸¦ ±×¸± y ÁÂÇ¥
-int ex_cnt; //ÀÌ¹ÌÁö¸¦ ¼øÂ÷ÀûÀ¸·Î ±×¸®±â À§ÇÑ Ä«¿îÅÍ
-int damage; //ÀÌ¹ÌÁö Á¾·ù¸¦ ±¸ºĞÇÏ±â À§ÇÑ º¯¼ö°ª
+int x; //ì´ë¯¸ì§€ë¥¼ ê·¸ë¦´ x ì¢Œí‘œ
+int y; //ì´ë¯¸ì§€ë¥¼ ê·¸ë¦´ y ì¢Œí‘œ
+int ex_cnt; //ì´ë¯¸ì§€ë¥¼ ìˆœì°¨ì ìœ¼ë¡œ ê·¸ë¦¬ê¸° ìœ„í•œ ì¹´ìš´í„°
+int damage; //ì´ë¯¸ì§€ ì¢…ë¥˜ë¥¼ êµ¬ë¶„í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ê°’
 
 Explosion(int x, int y, int damage){
 this.x = x;
@@ -604,6 +615,6 @@ this.damage = damage;
 ex_cnt = 0;
 }
 public void effect(){
-ex_cnt ++; //ÇØ´ç ¸Ş¼Òµå È£Ãâ ½Ã Ä«¿îÅÍ¸¦ +1 ½ÃÅ²´Ù.
+ex_cnt ++; //í•´ë‹¹ ë©”ì†Œë“œ í˜¸ì¶œ ì‹œ ì¹´ìš´í„°ë¥¼ +1 ì‹œí‚¨ë‹¤.
 }
 }
