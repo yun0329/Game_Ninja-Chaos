@@ -145,21 +145,31 @@ th.start();
 
 }
 
-public void run(){ 
-try{ 
-while(true){
-KeyProcess(); 
-EnemyProcess();
-MissileProcess(); 
+public void run() {
+    try {
+        while (true) {
+            KeyProcess();
+            EnemyProcess();
+            MissileProcess();
+            ExplosionProcess();
+            repaint();
+            Thread.sleep(20);
+            cnt++;
 
-ExplosionProcess();//气颇贸府 皋家靛 角青
-
-repaint(); 
-
-Thread.sleep(20);
-cnt ++;
+          
+            if (player_Hitpoint <= 0) {
+                showGameOver();
+                break;
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
-}catch (Exception e){}
+
+public void showGameOver() {
+    JOptionPane.showMessageDialog(this, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+    System.exit(0);
 }
 
 public void MissileProcess(){ 
