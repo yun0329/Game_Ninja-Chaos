@@ -61,29 +61,29 @@
 			<locationURI>PARENT-2-PROJECT_LOC/explo_2.png</locationURI>
 		</link>
 		<link>
-			<name>src/ImageIcon/f15k_0.jpg</name>
+			<name>src/ImageIcon/f15k_0.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/f15k_0.jpg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/f15k_0.png</locationURI>
 		</link>
 		<link>
-			<name>src/ImageIcon/f15k_1.jpg</name>
+			<name>src/ImageIcon/f15k_1.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/f15k_1.jpg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/f15k_1.png</locationURI>
 		</link>
 		<link>
-			<name>src/ImageIcon/f15k_2.jpg</name>
+			<name>src/ImageIcon/f15k_2.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/f15k_2.jpg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/f15k_2.png</locationURI>
 		</link>
 		<link>
-			<name>src/ImageIcon/f15k_3.jpg</name>
+			<name>src/ImageIcon/f15k_3.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/f15k_3.jpg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/f15k_3.png</locationURI>
 		</link>
 		<link>
-			<name>src/ImageIcon/f15k_4.jpg</name>
+			<name>src/ImageIcon/f15k_4.png</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/f15k_4.jpg</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/f15k_4.png</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
