@@ -94,11 +94,11 @@ Enemy_img = new ImageIcon("../Main/src/ImageIcon/enemy.png").getImage();
 //이미지 만드는 방식을 ImageIcon으로 변경.
 
 Player_img = new Image[5];
-int playerWidth =60;
-int playerHeight =70;
+int playerWidth =120;
+int playerHeight =120;
 for(int i = 0 ; i < Player_img.length ; ++i){
 Image playerImage = 
-new ImageIcon( "../Main/src/ImageIcon/f15k_" + i + ".jpg").getImage();
+new ImageIcon( "../Main/src/ImageIcon/f15k_" + i + ".png").getImage();
 Player_img[i] = playerImage.getScaledInstance(playerWidth, playerHeight, Image.SCALE_DEFAULT);
 }
 //플레이어 애니메이션 표현을 위해 파일이름을 
@@ -108,8 +108,8 @@ BackGround_img = new ImageIcon("../Main/src/ImageIcon/background.jpg").getImage(
 //전체 배경화면 이미지를 받습니다.
 
 Leaf_img = new Image[3];
-int newWidth = 70;
-int newHeight = 70;
+int newWidth = 120;
+int newHeight = 120;
 for(int i = 0 ; i <Leaf_img.length ; ++i){
 	 Image originalImage =
 new ImageIcon("../Main/src/ImageIcon/leaf_" + i + ".png").getImage();
@@ -126,13 +126,6 @@ new ImageIcon("../Main/src/ImageIcon/explo_" + i + ".png").getImage();
 //파일이름을 넘버마다 나눠 배열로 담는다.
 //모든 이미지는 Swing의 ImageIcon으로 받아 이미지 넓이,높이 // 값을 바로 얻을 수 있게 한다.
 
-//e_w = ImageWidthValue("enemy.png");
-//e_h = ImageHeightValue("enemy.png");
-//m_w = ImageWidthValue("Missile.png");
-//m_h = ImageHeightValue("Missile.png");
-//이미지 크기 계산 메소드를 삭제합니다.
-//Swing에서 지원되는 ImageIcon으로 
-//이미지 크기값을 쉽게 얻을수 있군요. 
 
 game_Score = 0;//게임 스코어 초기화
 player_Hitpoint = 3;//최초 플레이어 체력
@@ -545,31 +538,7 @@ break;
 public void keyTyped(KeyEvent e){}
 
 
-/* Swing의 ImageIcon 사용으로인해 별도로
- *  이미지 넓이, 높이 계산을 할 필요가 없어졌으므로 삭제합니다.
- *  
-public int ImageWidthValue(String file){ 
-// 이미지 넓이 크기 값 계산용 메소드 입니다.
-// 파일을 받아들여 그 파일 값을 계산 하도록 하는 것입니다.
-int x = 0;
-try{
-File f = new File(file); // 파일을 받습니다.
-BufferedImage bi = ImageIO.read(f);
-//받을 파일을 이미지로 읽어들입니다.
-x = bi.getWidth(); //이미지의 넓이 값을 받습니다.
-}catch(Exception e){}
-return x; //받은 넓이 값을 리턴 시킵니다.
-}
 
-public int ImageHeightValue(String file){ // 이미지 높이 크기 값 계산
-int y = 0;
-try{
-File f = new File(file);
-BufferedImage bi = ImageIO.read(f);
-y = bi.getHeight();
-}catch(Exception e){}
-return y;
-}*/
 }
 
 class Missile{
